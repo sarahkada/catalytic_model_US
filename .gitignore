@@ -4,6 +4,10 @@
 
 # Session Data files
 .RData
+/*.rds
+
+# remove mac specific files
+.DS_Store
 
 # User-specific files
 .Ruserdata
