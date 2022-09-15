@@ -14,7 +14,7 @@ library(loo)
 options(mc.cores = parallel::detectCores()) # checks number of cores without having later to specify the cores argument
 rstan_options(auto_write = TRUE) # extended packages to use stan
 ### Source function to prepare output
-source("code/1-2-exportcodeUS.R")
+source("code/0-exportcodeUS.R")
 iter = 5000
 yearly_foi_sd = 0.2 # 20% upper bound for average FOI - decided after comparing 20%, 25% and 30% upper bounds (see notebooks)
 life_exp <- 77; # life expectancy 
