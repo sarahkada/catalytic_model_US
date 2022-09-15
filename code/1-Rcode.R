@@ -14,7 +14,7 @@ library(loo)
 options(mc.cores = parallel::detectCores()) # checks number of cores without having later to specify the cores argument
 rstan_options(auto_write = TRUE) # extended packages to use stan
 ### Source function to prepare output
-source("code/0-exportcodeUS.R")
+source("code/0-export-code.R")
 iter = 5000
 yearly_foi_sd = 0.2 # 20% upper bound for average FOI - decided after comparing 20%, 25% and 30% upper bounds (see notebooks)
 life_exp <- 77; # life expectancy 
@@ -28,6 +28,7 @@ load('data/cases_PR_2010_2019.Rdata') # dengue cases
 census_PR <- read.csv('data/census_PR_2010_2019.csv', header = TRUE) # population census
 colnames(census_PR) <- gsub("X", "", colnames(census_PR)) # remove the X reas.csv adds to column header that have numbers
 census_PR <- census_PR[,-1] # remove first column with age groups
+j <- "PR"
 
 ## informed FOI prior
 # calculate median age at secondary infection 
@@ -51,16 +52,5 @@ run <- run_catalytic_model(cases= cases_PR_2010_2019[1:16,],
                            foi_mean = foi_mean,
                            foi_sd = foi_sd)
 
-if (stan_code == "denguefoi_negbin_yearlylambda.stan") {
-  pr <- data_extract_multiyear(run$dat, run$output)
-  save(pr, file= "output/MultiYearNegbinFOI_PR.Rdata")
-  png("figures/pairplots/pairplot_PR_model1.png")
-  pairs(run$output, pars = c('alpha', 'lambda[1]', 'lambda[2]', 'lambda[3]', 'reporting_rate'), las = 1)
-  dev.off()
-} else if (stan_code == "denguefoi_negbin_yearlylambda_v2.stan"){
-  pr2 <- data_extract_multiyear(run$dat, run$output)
-  save(pr2, file= "output/MultiYearNegbinFOI_PR_v2.Rdata")
-} else if (stan_code == "denguefoi_negbin_yearlylambda_v3.stan"){
-  pr3 <- data_extract_multiyear(run$dat, run$output)
-  save(pr3, file= "output/MultiYearNegbinFOI_PR_v3.Rdata")
-}
+model_output <- data_extract_multiyear(run$dat, run$output)
+saveRDS(model_output,file= paste0("output/model_",j,".rds"))
