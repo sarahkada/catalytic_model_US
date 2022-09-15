@@ -20,9 +20,7 @@ yearly_foi_sd = 0.2 # 20% upper bound for average FOI - decided after comparing 
 life_exp <- 77; # life expectancy 
 reporting_rate <- 0.1 # average reporting rate expected for all cases
 # stan code:
-# stan_code <- "denguefoi_negbin_yearlylambda.stan"
-# stan_code <- "denguefoi_negbin_yearlylambda_v2.stan"
-stan_code <- "denguefoi_negbin_yearlylambda_v3.stan"
+stan_code <- "denguefoi_model.stan"
 
 ############################################################
 ### Catalytic model function and xtract output of interest -- PR data
