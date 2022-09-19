@@ -1,4 +1,4 @@
-//This code uses a negbin distribution of cases. Secondary cases only
+ //This code uses a negbin distribution of cases. Secondary cases only
 // Reporting rate and FOI with hyperpriors
 data {
   int <lower=0> AG; //the number of age classes
@@ -10,6 +10,8 @@ data {
   int <lower=0> ur_bound[AG]; // upper age groups bounds
   real foi_mean;// hyperparameter lambda mean prior
   real foi_sd;// hyperparameter lambda sd prior
+  real reporting_mean;// hyperparameter reporting rate mean prior
+  real reporting_sd;// hyperparameter reproting rate sd prior
 }
 
 parameters {
@@ -73,11 +75,14 @@ transformed parameters {
 
 model {
   // prior distribution
+  
   alpha ~ beta(2, 1);
-  reporting_rate0 ~ normal(-2.2, sqrt(.7^2 / 2));// 0,1
+  
+  reporting_rate0 ~ normal(reporting_mean, sqrt(reporting_sd^2 / 2));// 0,1
   for (t in 1:T) {
-    reporting_rate_logit[t] ~ normal(reporting_rate0, sqrt(.7^2 / 2)); 
+    reporting_rate_logit[t] ~ normal(reporting_rate0, sqrt(reporting_sd^2 / 2)); 
   }
+  
   lambda0_logit ~ normal(foi_mean, sqrt(foi_sd ^2 / 2));
   // logitnorm::twCoefLogitnorm(0.05, 0.3, perc = 0.975)
   for (i in 1:(max_A+T)) {
