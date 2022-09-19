@@ -1,5 +1,5 @@
 ### Extract output of interest
-data_extract_multiyear<- function(data, output){
+data_extract <- function(data, output){
   
   susceptibility <- rstan::extract(output, pars = "susc", inc_warmup=FALSE, permute=F)  
   susceptibilitytosecondary <- rstan::extract(output, pars="mono", inc_warmup=FALSE, permute=F)
@@ -254,7 +254,10 @@ roof_age <-
 mid_age <- ceiling(roof_age[1:17] + diff(roof_age) / 2)
 
 # Catalytic model function
-run_catalytic_model <- function(cases, census, max_age, iter = 50000, chains = 4, thin= 10,AG, T, foi_mean, foi_sd, ...){
+run_catalytic_model <- function(cases, census, max_age, iter = 50000, chains = 4, thin= 10, AG, T, 
+                                foi_mean, foi_sd, 
+                                reporting_mean =  reporting_mean,
+                                reporting_sd = reporting_sd, ...) {
   
   data_prov <-
     list(
@@ -265,9 +268,10 @@ run_catalytic_model <- function(cases, census, max_age, iter = 50000, chains = 4
       pop = floor(census), #  total population at each time point for each age group
       lr_bound = seq(1,max_age, by=5),# age groups lower bounds
       ur_bound = seq(5,max_age+1, by=5), # age groups upper bounds
-      foi_mean =  foi_mean,
-      foi_sd = foi_sd
-    )
+      foi_mean =  foi_mean,  # foi hyperparameter mean
+      foi_sd = foi_sd, # foi SD (partitioned between hyperperameter and inter-annual variation)
+      reporting_mean = reporting_mean,# reporting rate hyperparameter mean
+      reporting_sd = reporting_sd) # reporting rate SD (partitioned between hyperperameter and inter-annual variation)
   
   ### Compile Stan code  
   comp2 <- stan(file=paste0("code/",stan_code), data=data_prov, chains = chains, ...) 
