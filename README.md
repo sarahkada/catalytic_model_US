@@ -1,7 +1,7 @@
 # catalytic_model_US
 
 
-This code reproduces the analysis in the paper ``Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs with simulated population census and case data to run the catalytic model.
+This code reproduces the analysis in the paper "Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs with simulated population census and case data to run the catalytic model.
 
 Three models exist:
 - Model S: 
