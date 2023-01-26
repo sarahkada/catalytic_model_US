@@ -3,7 +3,7 @@
 
 This code reproduces the analysis in the paper "Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs with simulated population census and case data to run the catalytic model.
 
-Three models exist:
+Three models exist, with corresponding stan code called. To change the model type, indicate model <- "model S" (or "model P" or "model PS").
 - Model S: 
 
 $$I_2(a, t) =  3  \lambda (t) \text{ . } M(a, t), $$
