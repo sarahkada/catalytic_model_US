@@ -3,7 +3,7 @@
 
 This code reproduces the analysis in the paper "Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs a catalytic model with simulated population census and case data.
 
-Use 1-main.R to run the catalytic models. Priors and saved outputs can be modified in the 0-export_code.R
+Use ``code/1-main.R`` to run the catalytic models. Priors and saved outputs can be modified in the ``code/0-export_code.R``.
 
 We explored three different models, with corresponding stan code called. Models are named "model S", "model P" or "model PS" following:
 
