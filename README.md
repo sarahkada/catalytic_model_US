@@ -1,9 +1,9 @@
 # catalytic_model_US
 
 
-This code reproduces the analysis in the paper "Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs with simulated population census and case data to run the catalytic model.
+This code reproduces the analysis in the paper "Age-specific case data reveal varying dengue transmission intensity in US states and territories''. The code runs a catalytic model with simulated population census and case data.
 
-Three models exist, with corresponding stan code called. To change the model type, indicate model <- "model S" (or "model P" or "model PS").
+Three models exist, with corresponding stan code called. Model types are specified as "model S", "model P" or "model PS" following:
 
 - **Model S:** 
 
